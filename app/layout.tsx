@@ -7,8 +7,9 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800", "900"], variable: "--font-poppins" });
 
 export const metadata: Metadata = {
-  title: "Mutant Technologies | Digital Marketing Agency",
-  description: "Shine Bright Online with Mutant Technologies. Web Development, Digital Marketing, and SEO services.",
+  title: "Free Website Audit — Mutant Technologies",
+  description:
+    "Your website is costing you business. We rebuild slow, outdated websites into fast, secure, lead-generating machines in 30–45 days. Get your free audit now.",
 };
 
 export default function RootLayout({
@@ -17,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${inter.variable} ${outfit.variable} ${poppins.variable} font-sans bg-dark-900 text-white antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} ${outfit.variable} ${poppins.variable} font-sans antialiased text-[#1a1a1a]`}>
         {children}
       </body>
     </html>

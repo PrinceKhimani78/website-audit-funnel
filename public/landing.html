@@ -1,1156 +1,1450 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mutant Technologies — Your Website Is Costing You Business</title>
-<meta name="description" content="Free Website Audit: We rebuild slow, outdated websites into fast, secure, lead-generating machines in 30–45 days. Only 5 slots available this week.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-/* ===== RESET & BASE ===== */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Barlow', sans-serif;
-  font-weight: 400;
-  background: #080808;
-  color: #f5f5f0;
-  line-height: 1.7;
-  overflow-x: hidden;
-  position: relative;
-}
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  opacity: 0.03;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 200px;
-}
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
-ul { list-style: none; }
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-}
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mutant Technologies — Your Website Is Costing You Business</title>
+  <meta name="description"
+    content="Free Website Audit: We rebuild slow, outdated websites into fast, secure, lead-generating machines in 30–45 days. Only 5 slots available this week.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* ===== SECTION DIVIDERS ===== */
-.section-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #242424 20%, #E8281A 50%, #242424 80%, transparent);
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* ===== SCROLL REVEAL ===== */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
+    body {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      background: #080808;
+      color: #f5f5f0;
+      line-height: 1.7;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-/* ===== 1. ANNOUNCEMENT BAR ===== */
-.announcement-bar {
-  background: #E8281A;
-  color: #fff;
-  text-align: center;
-  padding: 10px 20px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  position: relative;
-  z-index: 1001;
-}
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.03;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px;
+    }
 
-/* ===== 2. STICKY NAV ===== */
-.sticky-nav {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(8, 8, 8, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid #242424;
-  padding: 14px 0;
-}
-.sticky-nav .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.logo {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: 22px;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: #f5f5f0;
-}
-.logo .dot { color: #E8281A; }
-.nav-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #E8281A;
-  color: #fff;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 10px 24px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
-}
-.nav-cta:hover { background: #c91f14; transform: translateY(-1px); }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-/* ===== 3. HERO SECTION ===== */
-.hero {
-  padding: 120px 0 100px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(232, 40, 26, 0.12) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-.hero h1 {
-  font-size: clamp(42px, 6vw, 80px);
-  color: #f5f5f0;
-  margin-bottom: 28px;
-  position: relative;
-  z-index: 1;
-}
-.hero .sub-headline {
-  font-size: clamp(17px, 2vw, 20px);
-  font-weight: 400;
-  color: #b0b0a8;
-  max-width: 680px;
-  margin: 0 auto 44px;
-  line-height: 1.7;
-  position: relative;
-  z-index: 1;
-}
-.hero-ctas {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 1;
-}
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #E8281A;
-  color: #fff;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 17px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 16px 40px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-primary:hover { background: #c91f14; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,40,26,0.3); }
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  color: #f5f5f0;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 17px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 16px 40px;
-  border: 2px solid #333;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-secondary:hover { border-color: #25D366; color: #25D366; transform: translateY(-2px); }
-.urgency-line {
-  margin-top: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #D4A843;
-  font-weight: 600;
-  position: relative;
-  z-index: 1;
-}
-.pulse-dot {
-  width: 8px;
-  height: 8px;
-  background: #E8281A;
-  border-radius: 50%;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.6); }
-}
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-/* ===== 4. PAIN SECTION ===== */
-.pain-section { padding: 100px 0; }
-.section-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: #E8281A;
-  margin-bottom: 16px;
-}
-.pain-section h2 {
-  font-size: clamp(32px, 4vw, 52px);
-  margin-bottom: 20px;
-}
-.pain-intro {
-  font-size: 17px;
-  color: #999;
-  max-width: 680px;
-  margin-bottom: 56px;
-  line-height: 1.8;
-}
-.pain-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  background: #242424;
-  border: 1px solid #242424;
-  border-radius: 8px;
-  overflow: hidden;
-}
-.pain-card {
-  background: #111;
-  padding: 36px 28px;
-  transition: background 0.3s;
-}
-.pain-card:hover { background: #1a1a1a; }
-.pain-card h3 {
-  font-size: 20px;
-  margin-bottom: 12px;
-  color: #f5f5f0;
-}
-.pain-card p {
-  font-size: 15px;
-  color: #888;
-  line-height: 1.7;
-}
-.pain-card .pain-icon {
-  font-size: 28px;
-  margin-bottom: 16px;
-  display: block;
-}
-.pull-quote {
-  margin-top: 64px;
-  padding: 48px 40px;
-  background: #111;
-  border-left: 4px solid #E8281A;
-  border-radius: 0 8px 8px 0;
-  font-size: clamp(18px, 2.2vw, 22px);
-  font-weight: 500;
-  line-height: 1.7;
-  color: #d4d4cc;
-  font-style: italic;
-}
+    ul {
+      list-style: none;
+    }
 
-/* ===== 5. COST SECTION ===== */
-.cost-section { padding: 100px 0; }
-.cost-section h2 {
-  font-size: clamp(32px, 4vw, 52px);
-  margin-bottom: 20px;
-}
-.cost-section .section-subtitle {
-  font-size: 17px;
-  color: #888;
-  margin-bottom: 56px;
-}
-.cost-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
-  background: #242424;
-  border: 1px solid #242424;
-  border-radius: 8px;
-  overflow: hidden;
-}
-.cost-card {
-  background: #111;
-  padding: 40px 32px;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.3s;
-}
-.cost-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: #E8281A;
-  transform: scaleX(0);
-  transition: transform 0.4s ease;
-  transform-origin: left;
-}
-.cost-card:hover::before { transform: scaleX(1); }
-.cost-card:hover { background: #1a1a1a; }
-.cost-card .cost-number {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: 48px;
-  color: #1a1a1a;
-  position: absolute;
-  top: 16px;
-  right: 24px;
-  line-height: 1;
-  transition: color 0.3s;
-}
-.cost-card:hover .cost-number { color: #242424; }
-.cost-card h3 {
-  font-size: 22px;
-  margin-bottom: 12px;
-  color: #f5f5f0;
-}
-.cost-card p {
-  font-size: 15px;
-  color: #888;
-  line-height: 1.7;
-}
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
 
-/* ===== 6. SOLUTION SECTION ===== */
-.solution-section { padding: 100px 0; }
-.solution-section h2 {
-  font-size: clamp(32px, 4vw, 52px);
-  margin-bottom: 56px;
-}
-.solution-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: start;
-}
-.solution-copy p {
-  font-size: 16px;
-  color: #999;
-  line-height: 1.8;
-  margin-bottom: 32px;
-}
-.deliverables { margin-top: 8px; }
-.deliverable {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid #1a1a1a;
-}
-.deliverable .check {
-  color: #22c55e;
-  font-size: 18px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.deliverable span {
-  font-size: 15px;
-  color: #ccc;
-}
-.solution-callout {
-  background: #111;
-  border: 1px solid #242424;
-  border-radius: 8px;
-  padding: 40px 32px;
-}
-.solution-callout h3 {
-  font-size: 28px;
-  margin-bottom: 12px;
-  color: #f5f5f0;
-}
-.solution-callout .callout-sub {
-  font-size: 15px;
-  color: #888;
-  margin-bottom: 32px;
-  line-height: 1.7;
-}
-.timeline-badge {
-  display: inline-block;
-  background: rgba(232, 40, 26, 0.1);
-  border: 1px solid rgba(232, 40, 26, 0.3);
-  color: #E8281A;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 8px 20px;
-  border-radius: 4px;
-  margin-bottom: 28px;
-}
-.tech-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 8px;
-}
-.tech-badge {
-  background: #1a1a1a;
-  border: 1px solid #242424;
-  color: #999;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 4px;
-  font-family: 'Barlow', sans-serif;
-  letter-spacing: 0.04em;
-}
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
 
-/* ===== 7. OFFER BOX ===== */
-.offer-section { padding: 100px 0; }
-.offer-section h2 {
-  font-size: clamp(32px, 4vw, 52px);
-  margin-bottom: 56px;
-  text-align: center;
-}
-.offer-box {
-  background: #111;
-  border: 1px solid #242424;
-  border-top: 4px solid #E8281A;
-  border-radius: 8px;
-  overflow: hidden;
-}
-.offer-box-inner {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 0;
-}
-.offer-left {
-  padding: 48px 40px;
-  border-right: 1px solid #242424;
-}
-.offer-left h3 {
-  font-size: 24px;
-  margin-bottom: 32px;
-  color: #f5f5f0;
-}
-.offer-item {
-  display: flex;
-  gap: 14px;
-  padding: 16px 0;
-  border-bottom: 1px solid #1a1a1a;
-}
-.offer-item:last-child { border-bottom: none; }
-.offer-item .offer-check {
-  color: #22c55e;
-  font-size: 18px;
-  flex-shrink: 0;
-  margin-top: 3px;
-}
-.offer-item-text h4 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: #f5f5f0;
-  margin-bottom: 4px;
-}
-.offer-item-text p {
-  font-size: 14px;
-  color: #888;
-  line-height: 1.6;
-}
-.offer-right {
-  padding: 48px 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.offer-right h3 {
-  font-size: 18px;
-  margin-bottom: 28px;
-  color: #888;
-  font-weight: 700;
-}
-.value-line {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  font-size: 15px;
-  color: #999;
-}
-.value-line .price-crossed {
-  text-decoration: line-through;
-  color: #666;
-}
-.value-total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 0;
-  margin-top: 12px;
-  border-top: 2px solid #242424;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  text-transform: uppercase;
-  color: #f5f5f0;
-}
-.value-total .price-crossed {
-  text-decoration: line-through;
-  color: #666;
-  font-size: 24px;
-}
-.you-pay {
-  text-align: center;
-  margin-top: 28px;
-  padding: 24px;
-  background: rgba(232, 40, 26, 0.08);
-  border: 1px solid rgba(232, 40, 26, 0.2);
-  border-radius: 8px;
-}
-.you-pay .pay-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #888;
-  font-size: 13px;
-  margin-bottom: 4px;
-}
-.you-pay .pay-price {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: 56px;
-  color: #22c55e;
-  line-height: 1;
-}
-.you-pay .pay-desc {
-  font-size: 14px;
-  color: #D4A843;
-  margin-top: 8px;
-  font-weight: 600;
-}
-.offer-footer {
-  padding: 24px 40px;
-  background: #0e0e0e;
-  border-top: 1px solid #242424;
-  text-align: center;
-  font-size: 14px;
-  color: #888;
-  line-height: 1.6;
-}
+    /* ===== SECTION DIVIDERS ===== */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #242424 20%, #E8281A 50%, #242424 80%, transparent);
+    }
 
-/* ===== 8. LEAD FORM ===== */
-.form-section { padding: 100px 0; }
-.form-section h2 {
-  font-size: clamp(32px, 4vw, 52px);
-  margin-bottom: 12px;
-  text-align: center;
-}
-.form-section .form-sub {
-  text-align: center;
-  font-size: 17px;
-  color: #888;
-  margin-bottom: 48px;
-}
-.form-wrapper {
-  max-width: 580px;
-  margin: 0 auto;
-  background: #111;
-  border: 1px solid #242424;
-  border-radius: 8px;
-  padding: 44px 40px;
-}
-.form-group { margin-bottom: 20px; }
-.form-group label {
-  display: block;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #999;
-  margin-bottom: 8px;
-}
-.form-group label .required { color: #E8281A; }
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 14px 16px;
-  background: #1a1a1a;
-  border: 1px solid #242424;
-  border-radius: 5px;
-  color: #f5f5f0;
-  font-family: 'Barlow', sans-serif;
-  font-size: 15px;
-  transition: border-color 0.2s;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.form-group select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  padding-right: 40px;
-}
-.form-group input:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: #E8281A;
-}
-.form-group input::placeholder { color: #555; }
-.btn-submit {
-  width: 100%;
-  padding: 18px 32px;
-  background: #E8281A;
-  color: #fff;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 8px;
-}
-.btn-submit:hover { background: #c91f14; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,40,26,0.3); }
-.whatsapp-fallback {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 16px 32px;
-  background: #25D366;
-  color: #fff;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 16px;
-  text-decoration: none;
-}
-.whatsapp-fallback:hover { background: #1fa855; transform: translateY(-2px); }
-.success-message {
-  display: none;
-  text-align: center;
-  padding: 48px 32px;
-}
-.success-message h3 {
-  font-size: 28px;
-  margin-bottom: 12px;
-  color: #22c55e;
-}
-.success-message p {
-  font-size: 16px;
-  color: #888;
-}
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
 
-/* ===== 9. URGENCY BAR ===== */
-.urgency-bar { padding: 80px 0; text-align: center; }
-.urgency-bar h2 {
-  font-size: clamp(28px, 3.5vw, 44px);
-  margin-bottom: 32px;
-}
-.slots-visual {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 36px;
-}
-.slot-box {
-  width: 56px;
-  height: 56px;
-  border-radius: 6px;
-  border: 2px solid #242424;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: 18px;
-  transition: all 0.3s;
-}
-.slot-box.taken {
-  background: #E8281A;
-  border-color: #E8281A;
-  color: #fff;
-}
-.slot-box.available {
-  background: transparent;
-  border-color: #333;
-  color: #555;
-}
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-/* ===== 10. FOOTER ===== */
-.footer {
-  padding: 40px 0;
-  border-top: 1px solid #1a1a1a;
-  text-align: center;
-}
-.footer .logo { margin-bottom: 12px; display: inline-block; }
-.footer p {
-  font-size: 13px;
-  color: #555;
-}
-.footer a { color: #888; transition: color 0.2s; }
-.footer a:hover { color: #E8281A; }
+    /* ===== 1. ANNOUNCEMENT BAR ===== */
+    .announcement-bar {
+      background: #E8281A;
+      color: #fff;
+      text-align: center;
+      padding: 10px 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      position: relative;
+      z-index: 1001;
+    }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .hero { padding: 80px 0 60px; }
-  .pain-grid { grid-template-columns: repeat(2, 1fr); }
-  .cost-grid { grid-template-columns: 1fr; }
-  .solution-layout { grid-template-columns: 1fr; }
-  .offer-box-inner { grid-template-columns: 1fr; }
-  .offer-left { border-right: none; border-bottom: 1px solid #242424; }
-  .offer-left, .offer-right, .offer-footer { padding: 32px 24px; }
-  .form-wrapper { padding: 32px 24px; }
-  .pain-section, .cost-section, .solution-section, .offer-section, .form-section { padding: 60px 0; }
-  .pull-quote { padding: 32px 24px; font-size: 17px; }
-}
-@media (max-width: 640px) {
-  .pain-grid { grid-template-columns: 1fr; }
-  .hero-ctas { flex-direction: column; align-items: center; }
-  .btn-primary, .btn-secondary { width: 100%; max-width: 340px; justify-content: center; }
-  .slot-box { width: 44px; height: 44px; font-size: 15px; }
-  .announcement-bar { font-size: 11px; padding: 8px 12px; }
-}
-</style>
+    /* ===== 2. STICKY NAV ===== */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8, 8, 8, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #242424;
+      padding: 14px 0;
+    }
+
+    .sticky-nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #f5f5f0;
+    }
+
+    .logo .dot {
+      color: #E8281A;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #E8281A;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .nav-cta:hover {
+      background: #c91f14;
+      transform: translateY(-1px);
+    }
+
+    /* ===== 3. HERO SECTION ===== */
+    .hero {
+      padding: 120px 0 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(232, 40, 26, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 80px);
+      color: #f5f5f0;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero .sub-headline {
+      font-size: clamp(17px, 2vw, 20px);
+      font-weight: 400;
+      color: #b0b0a8;
+      max-width: 680px;
+      margin: 0 auto 44px;
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #E8281A;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 16px 40px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #c91f14;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(232, 40, 26, 0.3);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #f5f5f0;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 16px 40px;
+      border: 2px solid #333;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: #25D366;
+      color: #25D366;
+      transform: translateY(-2px);
+    }
+
+    .urgency-line {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #D4A843;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #E8281A;
+      border-radius: 50%;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(1.6);
+      }
+    }
+
+    /* ===== 4. PAIN SECTION ===== */
+    .pain-section {
+      padding: 100px 0;
+    }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #E8281A;
+      margin-bottom: 16px;
+    }
+
+    .pain-section h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      margin-bottom: 20px;
+    }
+
+    .pain-intro {
+      font-size: 17px;
+      color: #999;
+      max-width: 680px;
+      margin-bottom: 56px;
+      line-height: 1.8;
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: #242424;
+      border: 1px solid #242424;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .pain-card {
+      background: #111;
+      padding: 36px 28px;
+      transition: background 0.3s;
+    }
+
+    .pain-card:hover {
+      background: #1a1a1a;
+    }
+
+    .pain-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: #f5f5f0;
+    }
+
+    .pain-card p {
+      font-size: 15px;
+      color: #888;
+      line-height: 1.7;
+    }
+
+    .pain-card .pain-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .pull-quote {
+      margin-top: 64px;
+      padding: 48px 40px;
+      background: #111;
+      border-left: 4px solid #E8281A;
+      border-radius: 0 8px 8px 0;
+      font-size: clamp(18px, 2.2vw, 22px);
+      font-weight: 500;
+      line-height: 1.7;
+      color: #d4d4cc;
+      font-style: italic;
+    }
+
+    /* ===== 5. COST SECTION ===== */
+    .cost-section {
+      padding: 100px 0;
+    }
+
+    .cost-section h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      margin-bottom: 20px;
+    }
+
+    .cost-section .section-subtitle {
+      font-size: 17px;
+      color: #888;
+      margin-bottom: 56px;
+    }
+
+    .cost-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: #242424;
+      border: 1px solid #242424;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .cost-card {
+      background: #111;
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .cost-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #E8281A;
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+      transform-origin: left;
+    }
+
+    .cost-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .cost-card:hover {
+      background: #1a1a1a;
+    }
+
+    .cost-card .cost-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 48px;
+      color: #1a1a1a;
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+
+    .cost-card:hover .cost-number {
+      color: #242424;
+    }
+
+    .cost-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: #f5f5f0;
+    }
+
+    .cost-card p {
+      font-size: 15px;
+      color: #888;
+      line-height: 1.7;
+    }
+
+    /* ===== 6. SOLUTION SECTION ===== */
+    .solution-section {
+      padding: 100px 0;
+    }
+
+    .solution-section h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      margin-bottom: 56px;
+    }
+
+    .solution-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .solution-copy p {
+      font-size: 16px;
+      color: #999;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .deliverables {
+      margin-top: 8px;
+    }
+
+    .deliverable {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .deliverable .check {
+      color: #22c55e;
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .deliverable span {
+      font-size: 15px;
+      color: #ccc;
+    }
+
+    .solution-callout {
+      background: #111;
+      border: 1px solid #242424;
+      border-radius: 8px;
+      padding: 40px 32px;
+    }
+
+    .solution-callout h3 {
+      font-size: 28px;
+      margin-bottom: 12px;
+      color: #f5f5f0;
+    }
+
+    .solution-callout .callout-sub {
+      font-size: 15px;
+      color: #888;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .timeline-badge {
+      display: inline-block;
+      background: rgba(232, 40, 26, 0.1);
+      border: 1px solid rgba(232, 40, 26, 0.3);
+      color: #E8281A;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 8px 20px;
+      border-radius: 4px;
+      margin-bottom: 28px;
+    }
+
+    .tech-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .tech-badge {
+      background: #1a1a1a;
+      border: 1px solid #242424;
+      color: #999;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-family: 'Barlow', sans-serif;
+      letter-spacing: 0.04em;
+    }
+
+    /* ===== 7. OFFER BOX ===== */
+    .offer-section {
+      padding: 100px 0;
+    }
+
+    .offer-section h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      margin-bottom: 56px;
+      text-align: center;
+    }
+
+    .offer-box {
+      background: #111;
+      border: 1px solid #242424;
+      border-top: 4px solid #E8281A;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .offer-box-inner {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 0;
+    }
+
+    .offer-left {
+      padding: 48px 40px;
+      border-right: 1px solid #242424;
+    }
+
+    .offer-left h3 {
+      font-size: 24px;
+      margin-bottom: 32px;
+      color: #f5f5f0;
+    }
+
+    .offer-item {
+      display: flex;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .offer-item:last-child {
+      border-bottom: none;
+    }
+
+    .offer-item .offer-check {
+      color: #22c55e;
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .offer-item-text h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #f5f5f0;
+      margin-bottom: 4px;
+    }
+
+    .offer-item-text p {
+      font-size: 14px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    .offer-right {
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .offer-right h3 {
+      font-size: 18px;
+      margin-bottom: 28px;
+      color: #888;
+      font-weight: 700;
+    }
+
+    .value-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      font-size: 15px;
+      color: #999;
+    }
+
+    .value-line .price-crossed {
+      text-decoration: line-through;
+      color: #666;
+    }
+
+    .value-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      margin-top: 12px;
+      border-top: 2px solid #242424;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      text-transform: uppercase;
+      color: #f5f5f0;
+    }
+
+    .value-total .price-crossed {
+      text-decoration: line-through;
+      color: #666;
+      font-size: 24px;
+    }
+
+    .you-pay {
+      text-align: center;
+      margin-top: 28px;
+      padding: 24px;
+      background: rgba(232, 40, 26, 0.08);
+      border: 1px solid rgba(232, 40, 26, 0.2);
+      border-radius: 8px;
+    }
+
+    .you-pay .pay-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .you-pay .pay-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 56px;
+      color: #22c55e;
+      line-height: 1;
+    }
+
+    .you-pay .pay-desc {
+      font-size: 14px;
+      color: #D4A843;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    .offer-footer {
+      padding: 24px 40px;
+      background: #0e0e0e;
+      border-top: 1px solid #242424;
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* ===== 8. LEAD FORM ===== */
+    .form-section {
+      padding: 100px 0;
+    }
+
+    .form-section h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .form-section .form-sub {
+      text-align: center;
+      font-size: 17px;
+      color: #888;
+      margin-bottom: 48px;
+    }
+
+    .form-wrapper {
+      max-width: 580px;
+      margin: 0 auto;
+      background: #111;
+      border: 1px solid #242424;
+      border-radius: 8px;
+      padding: 44px 40px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999;
+      margin-bottom: 8px;
+    }
+
+    .form-group label .required {
+      color: #E8281A;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 14px 16px;
+      background: #1a1a1a;
+      border: 1px solid #242424;
+      border-radius: 5px;
+      color: #f5f5f0;
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #E8281A;
+    }
+
+    .form-group input::placeholder {
+      color: #555;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 18px 32px;
+      background: #E8281A;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+
+    .btn-submit:hover {
+      background: #c91f14;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(232, 40, 26, 0.3);
+    }
+
+    .whatsapp-fallback {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 16px 32px;
+      background: #25D366;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 16px;
+      text-decoration: none;
+    }
+
+    .whatsapp-fallback:hover {
+      background: #1fa855;
+      transform: translateY(-2px);
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 48px 32px;
+    }
+
+    .success-message h3 {
+      font-size: 28px;
+      margin-bottom: 12px;
+      color: #22c55e;
+    }
+
+    .success-message p {
+      font-size: 16px;
+      color: #888;
+    }
+
+    /* ===== 9. URGENCY BAR ===== */
+    .urgency-bar {
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .urgency-bar h2 {
+      font-size: clamp(28px, 3.5vw, 44px);
+      margin-bottom: 32px;
+    }
+
+    .slots-visual {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .slot-box {
+      width: 56px;
+      height: 56px;
+      border-radius: 6px;
+      border: 2px solid #242424;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      transition: all 0.3s;
+    }
+
+    .slot-box.taken {
+      background: #E8281A;
+      border-color: #E8281A;
+      color: #fff;
+    }
+
+    .slot-box.available {
+      background: transparent;
+      border-color: #333;
+      color: #555;
+    }
+
+    /* ===== 10. FOOTER ===== */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid #1a1a1a;
+      text-align: center;
+    }
+
+    .footer .logo {
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .footer p {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .footer a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .footer a:hover {
+      color: #E8281A;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 80px 0 60px;
+      }
+
+      .pain-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cost-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .solution-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .offer-box-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .offer-left {
+        border-right: none;
+        border-bottom: 1px solid #242424;
+      }
+
+      .offer-left,
+      .offer-right,
+      .offer-footer {
+        padding: 32px 24px;
+      }
+
+      .form-wrapper {
+        padding: 32px 24px;
+      }
+
+      .pain-section,
+      .cost-section,
+      .solution-section,
+      .offer-section,
+      .form-section {
+        padding: 60px 0;
+      }
+
+      .pull-quote {
+        padding: 32px 24px;
+        font-size: 17px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .pain-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        max-width: 340px;
+        justify-content: center;
+      }
+
+      .slot-box {
+        width: 44px;
+        height: 44px;
+        font-size: 15px;
+      }
+
+      .announcement-bar {
+        font-size: 11px;
+        padding: 8px 12px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ===== 1. ANNOUNCEMENT BAR ===== -->
-<div class="announcement-bar">
-  Only 5 free audit slots available this week — Claim yours before they're gone
-</div>
-
-<!-- ===== 2. STICKY NAV ===== -->
-<nav class="sticky-nav">
-  <div class="container">
-    <a href="https://mutanttechnologies.com" class="logo">Mutant<span class="dot">.</span> Technologies</a>
-    <a href="#audit-form" class="nav-cta">Get Free Audit →</a>
+  <!-- ===== 1. ANNOUNCEMENT BAR ===== -->
+  <div class="announcement-bar">
+    Only 5 free audit slots available this week — Claim yours before they're gone
   </div>
-</nav>
 
-<!-- ===== 3. HERO SECTION ===== -->
-<section class="hero" id="hero">
-  <div class="container">
-    <h1 class="reveal">Your Website Is Costing You<br>Business Right Now</h1>
-    <p class="sub-headline reveal" style="transition-delay:0.1s">If your site is slow, outdated, or built on old tech — every visitor you paid to bring there is quietly leaving. We rebuild websites into fast, secure, lead-generating machines in 30–45 days.</p>
-    <div class="hero-ctas reveal" style="transition-delay:0.2s">
-      <a href="#audit-form" class="btn-primary">Get My Free Website Audit</a>
-      <a href="https://wa.me/919876543210?text=Hi%20Mutant%20Technologies%2C%20I%20want%20a%20free%20website%20audit." class="btn-secondary" target="_blank">💬 Message on WhatsApp</a>
+  <!-- ===== 2. STICKY NAV ===== -->
+  <nav class="sticky-nav">
+    <div class="container">
+      <a href="https://mutanttechnologies.com" class="logo">Mutant<span class="dot">.</span> Technologies</a>
+      <a href="#audit-form" class="nav-cta">Get Free Audit →</a>
     </div>
-    <div class="urgency-line reveal" style="transition-delay:0.3s">
-      <span class="pulse-dot"></span>
-      ⚡ 3 of 5 rebuild slots taken this week
-    </div>
-  </div>
-</section>
+  </nav>
 
-<div class="section-divider"></div>
-
-<!-- ===== 4. PAIN SECTION ===== -->
-<section class="pain-section" id="pain">
-  <div class="container">
-    <p class="section-label reveal">The Hidden Problem</p>
-    <h2 class="reveal">Your Website Looks Fine<span class="dot" style="color:#E8281A">.</span> It's Not<span class="dot" style="color:#E8281A">.</span></h2>
-    <p class="pain-intro reveal">Most business websites have serious problems hiding behind a normal-looking surface. These problems silently drain your leads, hurt your rankings, and make your business look smaller than it is.</p>
-    <div class="pain-grid reveal">
-      <div class="pain-card" style="transition-delay:0.05s">
-        <span class="pain-icon">🐌</span>
-        <h3>Loading Too Slow</h3>
-        <p>53% of mobile visitors leave if a page takes more than 3 seconds. Your slow site is an invisible wall between you and revenue.</p>
+  <!-- ===== 3. HERO SECTION ===== -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <h1 class="reveal">Your Website Is Costing You<br>Business Right Now</h1>
+      <p class="sub-headline reveal" style="transition-delay:0.1s">If your site is slow, outdated, or built on old tech
+        — every visitor you paid to bring there is quietly leaving. We rebuild websites into fast, secure,
+        lead-generating machines in 30–45 days.</p>
+      <div class="hero-ctas reveal" style="transition-delay:0.2s">
+        <a href="#audit-form" class="btn-primary">Get My Free Website Audit</a>
+        <a href="https://wa.me/919879846695?text=Hi%20Mutant%20Technologies%2C%20I%20want%20a%20free%20website%20audit."
+          class="btn-secondary" target="_blank">💬 Message on WhatsApp</a>
       </div>
-      <div class="pain-card" style="transition-delay:0.1s">
-        <span class="pain-icon">🔓</span>
-        <h3>Security Gaps</h3>
-        <p>Old WordPress plugins are open doors for hackers. One breach destroys trust overnight. Your customers' data is at risk right now.</p>
-      </div>
-      <div class="pain-card" style="transition-delay:0.15s">
-        <span class="pain-icon">📉</span>
-        <h3>Falling in Google</h3>
-        <p>Google penalises slow, clunky sites. Your competitors are climbing while you drop. Every week you wait, you fall further behind.</p>
-      </div>
-      <div class="pain-card" style="transition-delay:0.2s">
-        <span class="pain-icon">💸</span>
-        <h3>Wasting Your Ad Budget</h3>
-        <p>You're paying for traffic and sending it to a site that doesn't convert. That's money in the drain. Every single day.</p>
-      </div>
-      <div class="pain-card" style="transition-delay:0.25s">
-        <span class="pain-icon">📱</span>
-        <h3>Broken on Mobile</h3>
-        <p>Over 70% of your visitors are on phones. If your site fails on mobile, you lose most of them before they even read a word.</p>
-      </div>
-      <div class="pain-card" style="transition-delay:0.3s">
-        <span class="pain-icon">⚙️</span>
-        <h3>Impossible to Scale</h3>
-        <p>Old tech stacks break under pressure. Every new feature costs double and takes twice as long. You're building on quicksand.</p>
+      <div class="urgency-line reveal" style="transition-delay:0.3s">
+        <span class="pulse-dot"></span>
+        ⚡ 3 of 5 rebuild slots taken this week
       </div>
     </div>
-    <div class="pull-quote reveal">
-      "You're running ads and doing SEO — but sending that traffic to a leaking bucket. Fix the bucket first. Everything else becomes profitable instantly."
-    </div>
-  </div>
-</section>
+  </section>
 
-<div class="section-divider"></div>
+  <div class="section-divider"></div>
 
-<!-- ===== 5. COST OF INACTION ===== -->
-<section class="cost-section" id="cost">
-  <div class="container">
-    <p class="section-label reveal">The Cost of Waiting</p>
-    <h2 class="reveal">Every Month You Don't Fix This, You're Paying for It</h2>
-    <p class="section-subtitle reveal">Inaction isn't free. It's the most expensive thing you're doing right now.</p>
-    <div class="cost-grid reveal">
-      <div class="cost-card">
-        <span class="cost-number">01</span>
-        <h3>Leads Going to Competitors</h3>
-        <p>Your competitor's faster site is converting the people you paid to attract. You're funding their growth.</p>
-      </div>
-      <div class="cost-card">
-        <span class="cost-number">02</span>
-        <h3>SEO Rankings Dropping</h3>
-        <p>Google demotes slow and insecure sites. The longer you wait, the deeper the hole. Recovery gets harder each month.</p>
-      </div>
-      <div class="cost-card">
-        <span class="cost-number">03</span>
-        <h3>One Hack Can End You</h3>
-        <p>Outdated tech means one vulnerability from your site going down and your data leaked. The cost of recovery? Massive. The cost of lost trust? Worse.</p>
-      </div>
-      <div class="cost-card">
-        <span class="cost-number">04</span>
-        <h3>Rebuilding Later Costs 2×</h3>
-        <p>Technical debt compounds. Fixing a broken old site in 12 months costs double what a clean rebuild costs today. The clock is ticking.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ===== 6. SOLUTION SECTION ===== -->
-<section class="solution-section" id="solution">
-  <div class="container">
-    <p class="section-label reveal">The Fix</p>
-    <h2 class="reveal">We Turn Your Broken Website Into a Business Asset</h2>
-    <div class="solution-layout">
-      <div class="solution-copy reveal">
-        <p>We don't slap a new coat of paint on your old website. We rebuild it from the ground up using modern frameworks — the same technology that powers the fastest sites on the internet.</p>
-        <p>Your current site is held together by outdated plugins, bloated code, and fragile architecture. Our team replaces all of it with a clean, fast, secure codebase that loads in under 2 seconds and converts visitors into enquiries.</p>
-        <p>This isn't a redesign. It's a complete engineering overhaul.</p>
-        <div class="deliverables">
-          <div class="deliverable">
-            <span class="check">✓</span>
-            <span><strong>Next.js / Modern Framework Rebuild</strong></span>
-          </div>
-          <div class="deliverable">
-            <span class="check">✓</span>
-            <span><strong>Sub-2 Second Load Times</strong> (Core Web Vitals optimised)</span>
-          </div>
-          <div class="deliverable">
-            <span class="check">✓</span>
-            <span><strong>Security-First Architecture</strong> (no vulnerable plugins)</span>
-          </div>
-          <div class="deliverable">
-            <span class="check">✓</span>
-            <span><strong>Mobile-First Design</strong> (perfect on every device)</span>
-          </div>
-          <div class="deliverable">
-            <span class="check">✓</span>
-            <span><strong>Conversion-Focused Layout</strong> (built to turn visitors into enquiries)</span>
-          </div>
-          <div class="deliverable">
-            <span class="check">✓</span>
-            <span><strong>Scales Without Breaking</strong> (add features cheaply, grow without rebuilding)</span>
-          </div>
+  <!-- ===== 4. PAIN SECTION ===== -->
+  <section class="pain-section" id="pain">
+    <div class="container">
+      <p class="section-label reveal">The Hidden Problem</p>
+      <h2 class="reveal">Your Website Looks Fine<span class="dot" style="color:#E8281A">.</span> It's Not<span
+          class="dot" style="color:#E8281A">.</span></h2>
+      <p class="pain-intro reveal">Most business websites have serious problems hiding behind a normal-looking surface.
+        These problems silently drain your leads, hurt your rankings, and make your business look smaller than it is.
+      </p>
+      <div class="pain-grid reveal">
+        <div class="pain-card" style="transition-delay:0.05s">
+          <span class="pain-icon">🐌</span>
+          <h3>Loading Too Slow</h3>
+          <p>53% of mobile visitors leave if a page takes more than 3 seconds. Your slow site is an invisible wall
+            between you and revenue.</p>
+        </div>
+        <div class="pain-card" style="transition-delay:0.1s">
+          <span class="pain-icon">🔓</span>
+          <h3>Security Gaps</h3>
+          <p>Old WordPress plugins are open doors for hackers. One breach destroys trust overnight. Your customers' data
+            is at risk right now.</p>
+        </div>
+        <div class="pain-card" style="transition-delay:0.15s">
+          <span class="pain-icon">📉</span>
+          <h3>Falling in Google</h3>
+          <p>Google penalises slow, clunky sites. Your competitors are climbing while you drop. Every week you wait, you
+            fall further behind.</p>
+        </div>
+        <div class="pain-card" style="transition-delay:0.2s">
+          <span class="pain-icon">💸</span>
+          <h3>Wasting Your Ad Budget</h3>
+          <p>You're paying for traffic and sending it to a site that doesn't convert. That's money in the drain. Every
+            single day.</p>
+        </div>
+        <div class="pain-card" style="transition-delay:0.25s">
+          <span class="pain-icon">📱</span>
+          <h3>Broken on Mobile</h3>
+          <p>Over 70% of your visitors are on phones. If your site fails on mobile, you lose most of them before they
+            even read a word.</p>
+        </div>
+        <div class="pain-card" style="transition-delay:0.3s">
+          <span class="pain-icon">⚙️</span>
+          <h3>Impossible to Scale</h3>
+          <p>Old tech stacks break under pressure. Every new feature costs double and takes twice as long. You're
+            building on quicksand.</p>
         </div>
       </div>
-      <div class="solution-callout reveal" style="transition-delay:0.15s">
-        <h3>This Isn't a Redesign<span class="dot" style="color:#E8281A">.</span><br>It's a Rebuild<span class="dot" style="color:#E8281A">.</span></h3>
-        <p class="callout-sub">We replace the entire tech stack. Your site goes from a liability to a lead-generating asset that works for you 24/7.</p>
-        <div class="timeline-badge">Delivery: 30–45 Days</div>
-        <p style="font-size:13px;color:#666;margin-top:28px;margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">Built With</p>
-        <div class="tech-badges">
-          <span class="tech-badge">Next.js</span>
-          <span class="tech-badge">React</span>
-          <span class="tech-badge">TypeScript</span>
-          <span class="tech-badge">Vercel</span>
-          <span class="tech-badge">Cloudflare</span>
+      <div class="pull-quote reveal">
+        "You're running ads and doing SEO — but sending that traffic to a leaking bucket. Fix the bucket first.
+        Everything else becomes profitable instantly."
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== 5. COST OF INACTION ===== -->
+  <section class="cost-section" id="cost">
+    <div class="container">
+      <p class="section-label reveal">The Cost of Waiting</p>
+      <h2 class="reveal">Every Month You Don't Fix This, You're Paying for It</h2>
+      <p class="section-subtitle reveal">Inaction isn't free. It's the most expensive thing you're doing right now.</p>
+      <div class="cost-grid reveal">
+        <div class="cost-card">
+          <span class="cost-number">01</span>
+          <h3>Leads Going to Competitors</h3>
+          <p>Your competitor's faster site is converting the people you paid to attract. You're funding their growth.
+          </p>
+        </div>
+        <div class="cost-card">
+          <span class="cost-number">02</span>
+          <h3>SEO Rankings Dropping</h3>
+          <p>Google demotes slow and insecure sites. The longer you wait, the deeper the hole. Recovery gets harder each
+            month.</p>
+        </div>
+        <div class="cost-card">
+          <span class="cost-number">03</span>
+          <h3>One Hack Can End You</h3>
+          <p>Outdated tech means one vulnerability from your site going down and your data leaked. The cost of recovery?
+            Massive. The cost of lost trust? Worse.</p>
+        </div>
+        <div class="cost-card">
+          <span class="cost-number">04</span>
+          <h3>Rebuilding Later Costs 2×</h3>
+          <p>Technical debt compounds. Fixing a broken old site in 12 months costs double what a clean rebuild costs
+            today. The clock is ticking.</p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="section-divider"></div>
+  <div class="section-divider"></div>
 
-<!-- ===== 7. THE OFFER BOX ===== -->
-<section class="offer-section" id="offer">
-  <div class="container">
-    <p class="section-label reveal" style="text-align:center">What You Get</p>
-    <h2 class="reveal">The Website Upgrade Growth System</h2>
-    <div class="offer-box reveal">
-      <div class="offer-box-inner">
-        <div class="offer-left">
-          <h3>Everything Included</h3>
-          <div class="offer-item">
-            <span class="offer-check">✓</span>
-            <div class="offer-item-text">
-              <h4>Full Performance Audit</h4>
-              <p>Speed, SEO, security and conversion analysis of your current site</p>
+  <!-- ===== 6. SOLUTION SECTION ===== -->
+  <section class="solution-section" id="solution">
+    <div class="container">
+      <p class="section-label reveal">The Fix</p>
+      <h2 class="reveal">We Turn Your Broken Website Into a Business Asset</h2>
+      <div class="solution-layout">
+        <div class="solution-copy reveal">
+          <p>We don't slap a new coat of paint on your old website. We rebuild it from the ground up using modern
+            frameworks — the same technology that powers the fastest sites on the internet.</p>
+          <p>Your current site is held together by outdated plugins, bloated code, and fragile architecture. Our team
+            replaces all of it with a clean, fast, secure codebase that loads in under 2 seconds and converts visitors
+            into enquiries.</p>
+          <p>This isn't a redesign. It's a complete engineering overhaul.</p>
+          <div class="deliverables">
+            <div class="deliverable">
+              <span class="check">✓</span>
+              <span><strong>Next.js / Modern Framework Rebuild</strong></span>
             </div>
-          </div>
-          <div class="offer-item">
-            <span class="offer-check">✓</span>
-            <div class="offer-item-text">
-              <h4>Security Vulnerability Report</h4>
-              <p>Every open door identified before permanently closing them</p>
+            <div class="deliverable">
+              <span class="check">✓</span>
+              <span><strong>Sub-2 Second Load Times</strong> (Core Web Vitals optimised)</span>
             </div>
-          </div>
-          <div class="offer-item">
-            <span class="offer-check">✓</span>
-            <div class="offer-item-text">
-              <h4>Complete Next.js Rebuild</h4>
-              <p>Modern, fast, secure codebase. Zero WordPress, zero plugin risk</p>
+            <div class="deliverable">
+              <span class="check">✓</span>
+              <span><strong>Security-First Architecture</strong> (no vulnerable plugins)</span>
             </div>
-          </div>
-          <div class="offer-item">
-            <span class="offer-check">✓</span>
-            <div class="offer-item-text">
-              <h4>Mobile-First UX Redesign</h4>
-              <p>Built for the 70%+ of visitors arriving on phones</p>
+            <div class="deliverable">
+              <span class="check">✓</span>
+              <span><strong>Mobile-First Design</strong> (perfect on every device)</span>
             </div>
-          </div>
-          <div class="offer-item">
-            <span class="offer-check">✓</span>
-            <div class="offer-item-text">
-              <h4>SEO-Ready Architecture</h4>
-              <p>Structured for Google to crawl, index and rank faster</p>
+            <div class="deliverable">
+              <span class="check">✓</span>
+              <span><strong>Conversion-Focused Layout</strong> (built to turn visitors into enquiries)</span>
             </div>
-          </div>
-          <div class="offer-item">
-            <span class="offer-check">✓</span>
-            <div class="offer-item-text">
-              <h4>WhatsApp + Lead Funnel Integration</h4>
-              <p>Turn visitors into enquiries automatically, 24/7</p>
-            </div>
-          </div>
-          <div class="offer-item">
-            <span class="offer-check">✓</span>
-            <div class="offer-item-text">
-              <h4>30-Day Post-Launch Support</h4>
-              <p>On call for a full month after going live</p>
+            <div class="deliverable">
+              <span class="check">✓</span>
+              <span><strong>Scales Without Breaking</strong> (add features cheaply, grow without rebuilding)</span>
             </div>
           </div>
         </div>
-        <div class="offer-right">
-          <h3>Total Value of Everything</h3>
-          <div class="value-line">
-            <span>Performance Audit</span>
-            <span class="price-crossed">₹10,000</span>
-          </div>
-          <div class="value-line">
-            <span>Security Audit</span>
-            <span class="price-crossed">₹15,000</span>
-          </div>
-          <div class="value-line">
-            <span>UX Redesign</span>
-            <span class="price-crossed">₹25,000</span>
-          </div>
-          <div class="value-line">
-            <span>Modern Development</span>
-            <span class="price-crossed">₹60,000</span>
-          </div>
-          <div class="value-line">
-            <span>Speed Optimisation</span>
-            <span class="price-crossed">₹15,000</span>
-          </div>
-          <div class="value-line">
-            <span>Conversion Optimisation</span>
-            <span class="price-crossed">₹20,000</span>
-          </div>
-          <div class="value-total">
-            <span>Total</span>
-            <span class="price-crossed">₹1,45,000+</span>
-          </div>
-          <div class="you-pay">
-            <div class="pay-label">You Pay Today</div>
-            <div class="pay-price">₹0</div>
-            <div class="pay-desc">FREE Audit + Strategy Call</div>
+        <div class="solution-callout reveal" style="transition-delay:0.15s">
+          <h3>This Isn't a Redesign<span class="dot" style="color:#E8281A">.</span><br>It's a Rebuild<span class="dot"
+              style="color:#E8281A">.</span></h3>
+          <p class="callout-sub">We replace the entire tech stack. Your site goes from a liability to a lead-generating
+            asset that works for you 24/7.</p>
+          <div class="timeline-badge">Delivery: 30–45 Days</div>
+          <p
+            style="font-size:13px;color:#666;margin-top:28px;margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">
+            Built With</p>
+          <div class="tech-badges">
+            <span class="tech-badge">Next.js</span>
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">TypeScript</span>
+            <span class="tech-badge">Vercel</span>
+            <span class="tech-badge">Cloudflare</span>
           </div>
         </div>
       </div>
-      <div class="offer-footer">
-        No cost. No obligation. We analyse your website and hand you the full report — whether you work with us or not.
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== 7. THE OFFER BOX ===== -->
+  <section class="offer-section" id="offer">
+    <div class="container">
+      <p class="section-label reveal" style="text-align:center">What You Get</p>
+      <h2 class="reveal">The Website Upgrade Growth System</h2>
+      <div class="offer-box reveal">
+        <div class="offer-box-inner">
+          <div class="offer-left">
+            <h3>Everything Included</h3>
+            <div class="offer-item">
+              <span class="offer-check">✓</span>
+              <div class="offer-item-text">
+                <h4>Full Performance Audit</h4>
+                <p>Speed, SEO, security and conversion analysis of your current site</p>
+              </div>
+            </div>
+            <div class="offer-item">
+              <span class="offer-check">✓</span>
+              <div class="offer-item-text">
+                <h4>Security Vulnerability Report</h4>
+                <p>Every open door identified before permanently closing them</p>
+              </div>
+            </div>
+            <div class="offer-item">
+              <span class="offer-check">✓</span>
+              <div class="offer-item-text">
+                <h4>Complete Next.js Rebuild</h4>
+                <p>Modern, fast, secure codebase. Zero WordPress, zero plugin risk</p>
+              </div>
+            </div>
+            <div class="offer-item">
+              <span class="offer-check">✓</span>
+              <div class="offer-item-text">
+                <h4>Mobile-First UX Redesign</h4>
+                <p>Built for the 70%+ of visitors arriving on phones</p>
+              </div>
+            </div>
+            <div class="offer-item">
+              <span class="offer-check">✓</span>
+              <div class="offer-item-text">
+                <h4>SEO-Ready Architecture</h4>
+                <p>Structured for Google to crawl, index and rank faster</p>
+              </div>
+            </div>
+            <div class="offer-item">
+              <span class="offer-check">✓</span>
+              <div class="offer-item-text">
+                <h4>WhatsApp + Lead Funnel Integration</h4>
+                <p>Turn visitors into enquiries automatically, 24/7</p>
+              </div>
+            </div>
+            <div class="offer-item">
+              <span class="offer-check">✓</span>
+              <div class="offer-item-text">
+                <h4>30-Day Post-Launch Support</h4>
+                <p>On call for a full month after going live</p>
+              </div>
+            </div>
+          </div>
+          <div class="offer-right">
+            <h3>Total Value of Everything</h3>
+            <div class="value-line">
+              <span>Performance Audit</span>
+              <span class="price-crossed">₹10,000</span>
+            </div>
+            <div class="value-line">
+              <span>Security Audit</span>
+              <span class="price-crossed">₹15,000</span>
+            </div>
+            <div class="value-line">
+              <span>UX Redesign</span>
+              <span class="price-crossed">₹25,000</span>
+            </div>
+            <div class="value-line">
+              <span>Modern Development</span>
+              <span class="price-crossed">₹60,000</span>
+            </div>
+            <div class="value-line">
+              <span>Speed Optimisation</span>
+              <span class="price-crossed">₹15,000</span>
+            </div>
+            <div class="value-line">
+              <span>Conversion Optimisation</span>
+              <span class="price-crossed">₹20,000</span>
+            </div>
+            <div class="value-total">
+              <span>Total</span>
+              <span class="price-crossed">₹1,45,000+</span>
+            </div>
+            <div class="you-pay">
+              <div class="pay-label">You Pay Today</div>
+              <div class="pay-price">₹0</div>
+              <div class="pay-desc">FREE Audit + Strategy Call</div>
+            </div>
+          </div>
+        </div>
+        <div class="offer-footer">
+          No cost. No obligation. We analyse your website and hand you the full report — whether you work with us or
+          not.
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="section-divider"></div>
+  <div class="section-divider"></div>
 
-<!-- ===== 8. LEAD CAPTURE FORM ===== -->
-<section class="form-section" id="audit-form">
-  <div class="container">
-    <p class="section-label reveal" style="text-align:center">Get Started</p>
-    <h2 class="reveal">We'll Audit Your Website for Free</h2>
-    <p class="form-sub reveal">Fill in your details and we'll send you a complete performance + security report within 48 hours.</p>
-    <div class="form-wrapper reveal">
-      <form id="leadForm">
-        <div class="form-group">
-          <label>Your Name <span class="required">*</span></label>
-          <input type="text" name="name" placeholder="e.g. Rahul Sharma" required>
+  <!-- ===== 8. LEAD CAPTURE FORM ===== -->
+  <section class="form-section" id="audit-form">
+    <div class="container">
+      <p class="section-label reveal" style="text-align:center">Get Started</p>
+      <h2 class="reveal">We'll Audit Your Website for Free</h2>
+      <p class="form-sub reveal">Fill in your details and we'll send you a complete performance + security report within
+        48 hours.</p>
+      <div class="form-wrapper reveal">
+        <form id="leadForm">
+          <div class="form-group">
+            <label>Your Name <span class="required">*</span></label>
+            <input type="text" name="name" placeholder="e.g. Rahul Sharma" required>
+          </div>
+          <div class="form-group">
+            <label>Business Name</label>
+            <input type="text" name="business" placeholder="e.g. Sharma Electronics">
+          </div>
+          <div class="form-group">
+            <label>Your Website URL <span class="required">*</span></label>
+            <input type="url" name="website" placeholder="e.g. https://yourwebsite.com" required>
+          </div>
+          <div class="form-group">
+            <label>WhatsApp Number <span class="required">*</span></label>
+            <input type="tel" name="phone" placeholder="e.g. 9879846695" required>
+          </div>
+          <div class="form-group">
+            <label>Business Type</label>
+            <select name="type">
+              <option value="" disabled selected>Select your industry</option>
+              <option value="E-commerce">E-commerce</option>
+              <option value="Professional Services">Professional Services</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Real Estate">Real Estate</option>
+              <option value="Manufacturing/B2B">Manufacturing / B2B</option>
+              <option value="Hospitality">Hospitality</option>
+              <option value="Education">Education</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit">🔍 Send Me My Free Website Audit</button>
+        </form>
+        <a href="https://wa.me/919879846695?text=Hi%20Mutant%20Technologies%2C%20I%20want%20a%20free%20website%20audit%20for%20my%20business."
+          class="whatsapp-fallback" target="_blank">💬 WhatsApp Us Now</a>
+        <div class="success-message" id="successMessage">
+          <h3>✓ Request Sent!</h3>
+          <p>We're redirecting you to WhatsApp to confirm. Check your messages — we'll be in touch within 24 hours.</p>
         </div>
-        <div class="form-group">
-          <label>Business Name</label>
-          <input type="text" name="business" placeholder="e.g. Sharma Electronics">
-        </div>
-        <div class="form-group">
-          <label>Your Website URL <span class="required">*</span></label>
-          <input type="url" name="website" placeholder="e.g. https://yourwebsite.com" required>
-        </div>
-        <div class="form-group">
-          <label>WhatsApp Number <span class="required">*</span></label>
-          <input type="tel" name="phone" placeholder="e.g. 9876543210" required>
-        </div>
-        <div class="form-group">
-          <label>Business Type</label>
-          <select name="type">
-            <option value="" disabled selected>Select your industry</option>
-            <option value="E-commerce">E-commerce</option>
-            <option value="Professional Services">Professional Services</option>
-            <option value="Healthcare">Healthcare</option>
-            <option value="Real Estate">Real Estate</option>
-            <option value="Manufacturing/B2B">Manufacturing / B2B</option>
-            <option value="Hospitality">Hospitality</option>
-            <option value="Education">Education</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <button type="submit" class="btn-submit">🔍 Send Me My Free Website Audit</button>
-      </form>
-      <a href="https://wa.me/919876543210?text=Hi%20Mutant%20Technologies%2C%20I%20want%20a%20free%20website%20audit%20for%20my%20business." class="whatsapp-fallback" target="_blank">💬 WhatsApp Us Now</a>
-      <div class="success-message" id="successMessage">
-        <h3>✓ Request Sent!</h3>
-        <p>We're redirecting you to WhatsApp to confirm. Check your messages — we'll be in touch within 24 hours.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="section-divider"></div>
+  <div class="section-divider"></div>
 
-<!-- ===== 9. URGENCY BAR ===== -->
-<section class="urgency-bar" id="urgency">
-  <div class="container">
-    <h2 class="reveal">Rebuild Slots This Week: 3 of 5 Taken</h2>
-    <div class="slots-visual reveal" style="transition-delay:0.1s">
-      <div class="slot-box taken">✕</div>
-      <div class="slot-box taken">✕</div>
-      <div class="slot-box taken">✕</div>
-      <div class="slot-box available"></div>
-      <div class="slot-box available"></div>
+  <!-- ===== 9. URGENCY BAR ===== -->
+  <section class="urgency-bar" id="urgency">
+    <div class="container">
+      <h2 class="reveal">Rebuild Slots This Week: 3 of 5 Taken</h2>
+      <div class="slots-visual reveal" style="transition-delay:0.1s">
+        <div class="slot-box taken">✕</div>
+        <div class="slot-box taken">✕</div>
+        <div class="slot-box taken">✕</div>
+        <div class="slot-box available"></div>
+        <div class="slot-box available"></div>
+      </div>
+      <a href="#audit-form" class="btn-primary reveal" style="transition-delay:0.2s">Reserve My Slot →</a>
     </div>
-    <a href="#audit-form" class="btn-primary reveal" style="transition-delay:0.2s">Reserve My Slot →</a>
-  </div>
-</section>
+  </section>
 
-<!-- ===== 10. FOOTER ===== -->
-<footer class="footer">
-  <div class="container">
-    <a href="https://mutanttechnologies.com" class="logo">Mutant<span class="dot">.</span> Technologies</a>
-    <p>&copy; 2026 Mutant Technologies. All rights reserved. | <a href="https://mutanttechnologies.com">mutanttechnologies.com</a></p>
-  </div>
-</footer>
+  <!-- ===== 10. FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <a href="https://mutanttechnologies.com" class="logo">Mutant<span class="dot">.</span> Technologies</a>
+      <p>&copy; 2026 Mutant Technologies. All rights reserved. | <a
+          href="https://mutanttechnologies.com">mutanttechnologies.com</a></p>
+    </div>
+  </footer>
 
-<script>
-/* ===== SCROLL REVEAL ===== */
-(function() {
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
+  <script>
+    /* ===== SCROLL REVEAL ===== */
+    (function () {
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function (el) { observer.observe(el); });
+    })();
+
+    /* ===== FORM → WHATSAPP ===== */
+    document.getElementById('leadForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var form = e.target;
+      var name = form.name.value.trim();
+      var business = form.business.value.trim();
+      var website = form.website.value.trim();
+      var phone = form.phone.value.trim();
+      var type = form.type.value;
+
+      var msg = 'Hi Mutant Technologies! I want a free website audit.\n\n';
+      msg += 'Name: ' + name + '\n';
+      if (business) msg += 'Business: ' + business + '\n';
+      msg += 'Website: ' + website + '\n';
+      msg += 'WhatsApp: ' + phone + '\n';
+      if (type) msg += 'Industry: ' + type + '\n';
+      msg += '\nPlease audit my website and send me the report.';
+
+      var waNumber = '919879846695';
+      var waURL = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(msg);
+
+      form.style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
+
+      setTimeout(function () {
+        window.open(waURL, '_blank');
+      }, 800);
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(function(el) { observer.observe(el); });
-})();
-
-/* ===== FORM → WHATSAPP ===== */
-document.getElementById('leadForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var form = e.target;
-  var name = form.name.value.trim();
-  var business = form.business.value.trim();
-  var website = form.website.value.trim();
-  var phone = form.phone.value.trim();
-  var type = form.type.value;
-
-  var msg = 'Hi Mutant Technologies! I want a free website audit.\n\n';
-  msg += 'Name: ' + name + '\n';
-  if (business) msg += 'Business: ' + business + '\n';
-  msg += 'Website: ' + website + '\n';
-  msg += 'WhatsApp: ' + phone + '\n';
-  if (type) msg += 'Industry: ' + type + '\n';
-  msg += '\nPlease audit my website and send me the report.';
-
-  var waNumber = '919876543210';
-  var waURL = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(msg);
-
-  form.style.display = 'none';
-  document.getElementById('successMessage').style.display = 'block';
-
-  setTimeout(function() {
-    window.open(waURL, '_blank');
-  }, 800);
-});
-</script>
+  </script>
 
 </body>
+
 </html>

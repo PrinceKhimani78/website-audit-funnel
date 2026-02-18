@@ -23,12 +23,9 @@ import {
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { sendAuditEmail } from "@/app/actions/email";
+import { sendWhatsAppNotification } from "@/app/actions/whatsapp";
 
-/* ─── constants ─── */
-const WA_NUMBER = "919879846695";
-const WA_DEFAULT_MSG = encodeURIComponent(
-    "Hi Mutant Technologies, I want a free website audit."
-);
+
 
 /* ─── reveal animation ─── */
 function Reveal({
@@ -188,6 +185,7 @@ const REVIEWS = [
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━ PAGE ━━━━━━━━━━━━━━━━━━━━━━━━━ */
 export default function Home() {
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [formMode, setFormMode] = useState<"audit" | "new-project">("audit");
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -204,9 +202,12 @@ export default function Home() {
                 await supabase.from("audits").insert({
                     name,
                     business,
-                    website,
+                    website: website || "N/A (New Project)",
                     phone,
                     industry: type,
+                    lead_type: formMode === "audit" ? "audit" : "blueprint",
+                    status: "new",
+                    raw_data: { name, business, website, phone, type, mode: formMode },
                 });
             } catch (error) {
                 console.error("Supabase Error:", error);
@@ -219,32 +220,37 @@ export default function Home() {
                 await sendAuditEmail({
                     name,
                     business,
-                    website,
+                    website: website || "N/A (New Project)",
                     phone,
                     industry: type,
+                    mode: formMode,
                 });
             } catch (error) {
                 console.error("Email Error:", error);
             }
         };
 
+        // 3. Send WhatsApp
+        const sendWhatsApp = async () => {
+            try {
+                await sendWhatsAppNotification({
+                    name,
+                    business,
+                    website: website || "N/A (New Project)",
+                    phone,
+                    industry: type,
+                    lead_type: formMode === "audit" ? "audit" : "blueprint",
+                });
+            } catch (error) {
+                console.error("WhatsApp Error:", error);
+            }
+        };
+
         saveToSupabase();
         sendEmail();
-
-        // 3. Prepare WhatsApp message
-        let msg = `Hi Mutant Technologies! I want a free website audit.\n\nName: ${name}\n`;
-        if (business) msg += `Business: ${business}\n`;
-        msg += `Website: ${website}\nWhatsApp: ${phone}\n`;
-        if (type) msg += `Industry: ${type}\n`;
-        msg += `\nPlease audit my website and send me the report.`;
+        sendWhatsApp();
 
         setFormSubmitted(true);
-        setTimeout(() => {
-            window.open(
-                `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,
-                "_blank"
-            );
-        }, 800);
     };
 
     return (
@@ -309,17 +315,19 @@ export default function Home() {
                         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
                             <a
                                 href="/#audit-form"
+                                onClick={() => setFormMode("audit")}
                                 className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-md transition-colors"
                             >
-                                Get My Free Website Audit
+                                Audit My Existing Site
                                 <ArrowRight className="w-4 h-4" />
                             </a>
                             <a
                                 href="/#audit-form"
+                                onClick={() => setFormMode("new-project")}
                                 className="inline-flex items-center justify-center gap-2 bg-white hover:bg-[#f0f0ec] text-[#1a1a1a] font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-md border border-[#d4d4d0] transition-colors"
                             >
-                                <Search className="w-4 h-4" />
-                                Start My Free Audit
+                                <Wrench className="w-4 h-4" />
+                                Build a New Project
                             </a>
                         </div>
                     </Reveal>
@@ -687,18 +695,37 @@ export default function Home() {
                     </Reveal>
                     <Reveal delay={0.05}>
                         <h2 className="text-4xl sm:text-5xl md:text-[56px] font-extrabold tracking-tight leading-[1.1] text-[#1a1a1a] text-center mb-6">
-                            We'll Audit Your Website For Free
+                            {formMode === "audit"
+                                ? "We'll Audit Your Website For Free"
+                                : "Get Your Free Project Blueprint"}
                         </h2>
                     </Reveal>
                     <Reveal delay={0.1}>
-                        <p className="text-[#666] text-center text-lg leading-relaxed max-w-2xl mx-auto mb-16">
-                            Fill in your details and we'll send you a complete
-                            performance + security report within 48 hours.
+                        <p className="text-[#666] text-center text-lg leading-relaxed max-w-2xl mx-auto mb-12">
+                            {formMode === "audit"
+                                ? "Fill in your details and we'll send you a complete performance + security report within 48 hours."
+                                : "Starting a new business? Tell us your vision and we'll send you a custom roadmap and tech stack proposal within 48 hours."}
                         </p>
                     </Reveal>
 
                     <Reveal delay={0.15}>
                         <div className="max-w-xl mx-auto">
+                            {/* Mode Toggle */}
+                            <div className="flex bg-[#f0f0ec] p-1 rounded-xl mb-10 w-fit mx-auto">
+                                <button
+                                    onClick={() => setFormMode("audit")}
+                                    className={`px-6 py-2.5 rounded-lg text-sm font-bold transition-all ${formMode === "audit" ? "bg-white text-[#1a1a1a] shadow-sm" : "text-[#999] hover:text-[#666]"}`}
+                                >
+                                    I Have a Site
+                                </button>
+                                <button
+                                    onClick={() => setFormMode("new-project")}
+                                    className={`px-6 py-2.5 rounded-lg text-sm font-bold transition-all ${formMode === "new-project" ? "bg-white text-[#1a1a1a] shadow-sm" : "text-[#999] hover:text-[#666]"}`}
+                                >
+                                    I Need a New Site
+                                </button>
+                            </div>
+
                             {!formSubmitted ? (
                                 <form onSubmit={handleSubmit} className="space-y-8">
                                     <FormField label="Your Name" required>
@@ -720,12 +747,12 @@ export default function Home() {
                                         />
                                     </FormField>
 
-                                    <FormField label="Your Website URL" required>
+                                    <FormField label={formMode === "audit" ? "Your Website URL" : "Project Objective"} required>
                                         <input
                                             name="website"
-                                            type="url"
+                                            type="text"
                                             required
-                                            placeholder="e.g. https://yourwebsite.com"
+                                            placeholder={formMode === "audit" ? "e.g. www.yourwebsite.com" : "e.g. E-commerce brand for organic skin care"}
                                             className="w-full bg-[#fdfdfd] border border-[#eee] rounded-xl px-6 py-5 text-base text-[#1a1a1a] placeholder:text-[#ccc] focus:outline-none focus:border-[#FF6B00] transition-colors shadow-sm"
                                         />
                                     </FormField>
@@ -761,6 +788,8 @@ export default function Home() {
                                             <option>Manufacturing / B2B</option>
                                             <option>Hospitality</option>
                                             <option>Education</option>
+                                            <option>New Startup / Venture</option>
+                                            <option>Personal Brand</option>
                                             <option>Other</option>
                                         </select>
                                     </FormField>
@@ -769,8 +798,8 @@ export default function Home() {
                                         type="submit"
                                         className="w-full bg-primary hover:bg-primary-hover text-white font-bold text-sm uppercase tracking-wider py-4 rounded-lg transition-colors mt-2 flex items-center justify-center gap-2"
                                     >
-                                        <Search className="w-4 h-4" />
-                                        Send Me My Free Website Audit
+                                        {formMode === "audit" ? <Search className="w-4 h-4" /> : <Wrench className="w-4 h-4" />}
+                                        {formMode === "audit" ? "Send Me My Free Website Audit" : "Send Me My Free Project Blueprint"}
                                     </button>
                                 </form>
                             ) : (
@@ -782,13 +811,13 @@ export default function Home() {
                                         Request Sent!
                                     </h3>
                                     <p className="text-sm text-[#888]">
-                                        We&apos;re redirecting you to WhatsApp to confirm. We&apos;ll be in touch within 24 hours.
+                                        We&apos;ve received your request! We&apos;ll be in touch within 24 hours.
                                     </p>
                                 </div>
                             )}
 
                             <Link
-                                href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Hi Mutant Technologies, I want a free website audit for my business.")}`}
+                                href={`https://wa.me/917016228551?text=${encodeURIComponent("Hi Mutant Technologies, I want a free website audit for my business.")}`}
                                 target="_blank"
                                 className="mt-4 w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1fa855] text-white font-bold text-sm uppercase tracking-wider py-4 rounded-lg transition-colors"
                             >

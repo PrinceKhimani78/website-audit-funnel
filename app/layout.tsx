@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Free Website Audit — Mutant Technologies",
   description:
     "Your website is costing you business. We rebuild slow, outdated websites into fast, secure, lead-generating machines in 30–45 days. Get your free audit now.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -45,7 +48,6 @@ export default function RootLayout({
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
               fbq('init', '893951753345584');
-              fbq('track', 'PageView');
             `,
           }}
         />

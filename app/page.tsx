@@ -25,6 +25,12 @@ import { supabase } from "@/lib/supabase";
 import { sendAuditEmail } from "@/app/actions/email";
 import { sendWhatsAppNotification } from "@/app/actions/whatsapp";
 
+// Facebook Pixel type declaration
+declare global {
+    interface Window {
+        fbq: (...args: unknown[]) => void;
+    }
+}
 
 
 /* ─── reveal animation ─── */
@@ -196,6 +202,14 @@ export default function Home() {
         const phone = fd.get("phone") as string;
         const type = fd.get("type") as string;
 
+        // Facebook Pixel — fire Lead event immediately on form submit
+        if (typeof window !== "undefined" && window.fbq) {
+            window.fbq("track", "Lead", {
+                content_name: formMode === "audit" ? "Website Audit Request" : "Project Blueprint Request",
+                content_category: type || "General",
+            });
+        }
+
         // 1. Save to Supabase
         const saveToSupabase = async () => {
             try {
@@ -249,6 +263,14 @@ export default function Home() {
         saveToSupabase();
         sendEmail();
         sendWhatsApp();
+
+        // Facebook Pixel — fire CompleteRegistration on success
+        if (typeof window !== "undefined" && window.fbq) {
+            window.fbq("track", "CompleteRegistration", {
+                content_name: formMode === "audit" ? "Website Audit Request" : "Project Blueprint Request",
+                status: "submitted",
+            });
+        }
 
         setFormSubmitted(true);
     };

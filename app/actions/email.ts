@@ -2,8 +2,6 @@
 
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function sendAuditEmail(formData: {
     name: string;
     business?: string;
@@ -13,6 +11,7 @@ export async function sendAuditEmail(formData: {
     mode?: 'audit' | 'new-project';
 }) {
     try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
         const isBlueprint = formData.mode === 'new-project';
         const subject = isBlueprint
             ? `New Project Blueprint Request: ${formData.name}`

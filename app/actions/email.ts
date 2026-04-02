@@ -17,6 +17,10 @@ export async function sendAuditEmail(formData: {
             ? `New Project Blueprint Request: ${formData.name}`
             : `New Website Audit Request: ${formData.name}`;
 
+        console.log('--- Sending Audit Email ---');
+        console.log('Lead Name:', formData.name);
+        console.log('Recipient:', 'prince@mutanttechnologies.com');
+
         const { data, error } = await resend.emails.send({
             from: 'Mutant Service <onboarding@resend.dev>',
             to: ['prince@mutanttechnologies.com'],
@@ -47,13 +51,14 @@ export async function sendAuditEmail(formData: {
         });
 
         if (error) {
-            console.error('Resend Error:', error);
+            console.error('❌ Resend API Error:', error.name, error.message);
             return { success: false, error };
         }
 
+        console.log('✅ Email sent successfully. ID:', data?.id);
         return { success: true, data };
-    } catch (err) {
-        console.error('Email Action Error:', err);
+    } catch (err: any) {
+        console.error('❌ Unexpected Email Action Error:', err.message);
         return { success: false, error: err };
     }
 }

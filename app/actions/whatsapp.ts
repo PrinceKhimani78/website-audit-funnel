@@ -16,11 +16,11 @@ export async function sendWhatsAppNotification(data: {
     const toNumber = process.env.MY_WHATSAPP_NUMBER;
 
     console.log("--- WhatsApp Action Triggered ---");
+    console.log("Recipient:", toNumber);
+    console.log("Sender:", fromNumber);
     console.log("Config check:", {
         hasSid: !!accountSid,
         hasToken: !!authToken,
-        from: fromNumber,
-        to: toNumber
     });
 
     if (!accountSid || !authToken || !fromNumber || !toNumber) {
@@ -39,6 +39,8 @@ export async function sendWhatsAppNotification(data: {
         `*WhatsApp:* ${phone}\n` +
         `${industry ? `*Industry:* ${industry}` : ''}`;
 
+    console.log("Message Content:", message);
+
     try {
         const client = twilio(accountSid, authToken);
         const result = await client.messages.create({
@@ -49,7 +51,10 @@ export async function sendWhatsAppNotification(data: {
         console.log("✅ WhatsApp sent successfully. SID:", result.sid);
         return { success: true, sid: result.sid };
     } catch (error: any) {
-        console.error("❌ WhatsApp Action Error:", error.message || error);
+        console.error("❌ WhatsApp Action Error Details:");
+        console.error("- Message:", error.message);
+        console.error("- Code:", error.code);
+        console.error("- Status:", error.status);
         return { success: false, error: error.message || "Unknown error" };
     }
 }

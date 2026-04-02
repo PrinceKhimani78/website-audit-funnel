@@ -191,27 +191,30 @@ const REVIEWS = [
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━ PAGE ━━━━━━━━━━━━━━━━━━━━━━━━━ */
 export default function Home() {
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formMode, setFormMode] = useState<"audit" | "new-project">("audit");
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const fd = new FormData(e.currentTarget);
-        const name = fd.get("name") as string;
-        const business = fd.get("business") as string;
-        const website = fd.get("website") as string;
-        const phone = fd.get("phone") as string;
-        const type = fd.get("type") as string;
+        setIsSubmitting(true);
+        
+        try {
+            const fd = new FormData(e.currentTarget);
+            const name = fd.get("name") as string;
+            const business = fd.get("business") as string;
+            const website = fd.get("website") as string;
+            const phone = fd.get("phone") as string;
+            const type = fd.get("type") as string;
 
-        // Facebook Pixel — fire Lead event immediately on form submit
-        if (typeof window !== "undefined" && window.fbq) {
-            window.fbq("track", "Lead", {
-                content_name: formMode === "audit" ? "Website Audit Request" : "Project Blueprint Request",
-                content_category: type || "General",
-            });
-        }
+            // Facebook Pixel — fire Lead event immediately on form submit
+            if (typeof window !== "undefined" && window.fbq) {
+                window.fbq("track", "Lead", {
+                    content_name: formMode === "audit" ? "Website Audit Request" : "Project Blueprint Request",
+                    content_category: type || "General",
+                });
+            }
 
-        // 1. Save to Supabase
-        const saveToSupabase = async () => {
+            // 1. Save to Supabase
             try {
                 await supabase.from("audits").insert({
                     name,
@@ -226,10 +229,8 @@ export default function Home() {
             } catch (error) {
                 console.error("Supabase Error:", error);
             }
-        };
 
-        // 2. Send Email
-        const sendEmail = async () => {
+            // 2. Send Email
             try {
                 await sendAuditEmail({
                     name,
@@ -242,10 +243,9 @@ export default function Home() {
             } catch (error) {
                 console.error("Email Error:", error);
             }
-        };
 
-        // 3. Send WhatsApp
-        const sendWhatsApp = async () => {
+            // 3. Send WhatsApp (Disabled as per user request)
+            /*
             try {
                 await sendWhatsAppNotification({
                     name,
@@ -258,21 +258,23 @@ export default function Home() {
             } catch (error) {
                 console.error("WhatsApp Error:", error);
             }
-        };
+            */
 
-        saveToSupabase();
-        sendEmail();
-        sendWhatsApp();
+            // Facebook Pixel — fire CompleteRegistration on success
+            if (typeof window !== "undefined" && window.fbq) {
+                window.fbq("track", "CompleteRegistration", {
+                    content_name: formMode === "audit" ? "Website Audit Request" : "Project Blueprint Request",
+                    status: "submitted",
+                });
+            }
 
-        // Facebook Pixel — fire CompleteRegistration on success
-        if (typeof window !== "undefined" && window.fbq) {
-            window.fbq("track", "CompleteRegistration", {
-                content_name: formMode === "audit" ? "Website Audit Request" : "Project Blueprint Request",
-                status: "submitted",
-            });
+            setFormSubmitted(true);
+        } catch (error) {
+            console.error("Submission Error:", error);
+            alert("Something went wrong. Please try again or WhatsApp us directly.");
+        } finally {
+            setIsSubmitting(false);
         }
-
-        setFormSubmitted(true);
     };
 
     return (
@@ -818,10 +820,20 @@ export default function Home() {
 
                                     <button
                                         type="submit"
-                                        className="w-full bg-primary hover:bg-primary-hover text-white font-bold text-sm uppercase tracking-wider py-4 rounded-lg transition-colors mt-2 flex items-center justify-center gap-2"
+                                        disabled={isSubmitting}
+                                        className="w-full bg-primary hover:bg-primary-hover text-white font-bold text-sm uppercase tracking-wider py-4 rounded-lg transition-colors mt-2 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                                     >
-                                        {formMode === "audit" ? <Search className="w-4 h-4" /> : <Wrench className="w-4 h-4" />}
-                                        {formMode === "audit" ? "Send Me My Free Website Audit" : "Send Me My Free Project Blueprint"}
+                                        {isSubmitting ? (
+                                            <>
+                                                <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                                                Sending...
+                                            </>
+                                        ) : (
+                                            <>
+                                                {formMode === "audit" ? <Search className="w-4 h-4" /> : <Wrench className="w-4 h-4" />}
+                                                {formMode === "audit" ? "Send Me My Free Website Audit" : "Send Me My Free Project Blueprint"}
+                                            </>
+                                        )}
                                     </button>
                                 </form>
                             ) : (
